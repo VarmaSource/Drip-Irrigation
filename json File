@@ -1,0 +1,2341 @@
+[
+    {
+        "id": "21b8be856a56a519",
+        "type": "tab",
+        "label": "Flow 11",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6962fa5c1eb6e7b2",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "pH_tank",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 960,
+        "wires": [
+            [
+                "bee3a6ecbd9517a8",
+                "871ec628b701fd86",
+                "ebb88d999040cea1"
+            ]
+        ]
+    },
+    {
+        "id": "ea0a75df3a754937",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "water_level",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "8364e17783ffcbe1",
+                "c3cbd555ecd9caf0",
+                "458fdb2635a47ea6",
+                "8f16abfa0ab6d563"
+            ]
+        ]
+    },
+    {
+        "id": "73ed42dd067ff7b5",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "soil_moisture",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 1140,
+        "wires": [
+            [
+                "cf84cddb84a7d811",
+                "e89d4d2e3081ae78"
+            ]
+        ]
+    },
+    {
+        "id": "bf70e0dbfe306263",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "pH_soil",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 760,
+        "wires": [
+            [
+                "1cb847996b523619",
+                "5f4c65d6ab2697d7",
+                "b0cd403eeef2379a"
+            ]
+        ]
+    },
+    {
+        "id": "c3cbd555ecd9caf0",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 36",
+        "func": "if (msg.payload >= 20 && msg.payload < 100) {\n    msg.payload = 1;\n    //System.out.println(\"Moter will be OFF\");\n}\n\nelse if (msg.payload < 20){\n    msg.payload = 0;\n    //System.out.println(\"Moter will be ON for 30 min\");\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 200,
+        "wires": [
+            [
+                "f87dcdcf99dd22e2",
+                "bb32098c5c712766"
+            ]
+        ]
+    },
+    {
+        "id": "cf84cddb84a7d811",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 37",
+        "func": "if (msg.payload > 90){\n    msg.payload = 0;\n}\n\nelse {\n    msg.payload = 1;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1140,
+        "wires": [
+            [
+                "2e5aed41e1e21c66"
+            ]
+        ]
+    },
+    {
+        "id": "871ec628b701fd86",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 65",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "458fdb2635a47ea6",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 66",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "e89d4d2e3081ae78",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 67",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "1cb847996b523619",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 38",
+        "func": "if (msg.payload < 5) {\n    msg.payload = 1\n}\nelse {\n    msg.payload = 0\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 760,
+        "wires": [
+            [
+                "647d34a933b0a609",
+                "c6e92390c2c43fe4",
+                "71da28a9d535d5a7"
+            ]
+        ]
+    },
+    {
+        "id": "b0cd403eeef2379a",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 68",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "bee3a6ecbd9517a8",
+        "type": "ui_gauge",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "group": "21c04f8e9625129a",
+        "order": 505,
+        "width": "5",
+        "height": "4",
+        "gtype": "gage",
+        "title": "pH_tank",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "14",
+        "colors": [
+            "#00b31e",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "5",
+        "seg2": "10",
+        "className": "",
+        "x": 320,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "8364e17783ffcbe1",
+        "type": "ui_gauge",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "group": "21c04f8e9625129a",
+        "order": 506,
+        "width": "5",
+        "height": "4",
+        "gtype": "gage",
+        "title": "water_level_tank",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#e10e0e",
+            "#e6e600",
+            "#65cb3a"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 350,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "5f4c65d6ab2697d7",
+        "type": "ui_gauge",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "group": "21c04f8e9625129a",
+        "order": 505,
+        "width": "5",
+        "height": "4",
+        "gtype": "gage",
+        "title": "pH_soil",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "14",
+        "colors": [
+            "#00b31e",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "5",
+        "seg2": "10",
+        "className": "",
+        "x": 320,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "f87dcdcf99dd22e2",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "label": "motor_auto",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 506,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 570,
+        "y": 200,
+        "wires": [
+            [
+                "8e87b41c56b0f658",
+                "29591e7e9798b02f",
+                "94b1a696ee9d129e"
+            ]
+        ]
+    },
+    {
+        "id": "c26c961fa6581e0b",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "label": "motor_manual",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 507,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 560,
+        "y": 240,
+        "wires": [
+            [
+                "8e87b41c56b0f658"
+            ]
+        ]
+    },
+    {
+        "id": "8e87b41c56b0f658",
+        "type": "mqtt out",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "motor",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c6b7f42765f8bc63",
+        "x": 790,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "94b1a696ee9d129e",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 39",
+        "func": "if (msg.payload == 1) {\n    var content = \"Water motor was ON\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n\nelse if (msg.payload == 0) {\n    var content = \"Water motor was OFF\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n\nelse {\n    msg.payload = 0\n\n    return 0;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 200,
+        "wires": [
+            [
+                "fffbf17e94966c6f",
+                "ca8b9dcfe569fc29"
+            ]
+        ]
+    },
+    {
+        "id": "29591e7e9798b02f",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 69",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "bb32098c5c712766",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 70",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "fffbf17e94966c6f",
+        "type": "telegram sender",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "bot": "e1928e15ede6c9c4",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 200,
+        "wires": [
+            [
+                "d36e865e7a218e55"
+            ]
+        ]
+    },
+    {
+        "id": "ca8b9dcfe569fc29",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 71",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d36e865e7a218e55",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 72",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "8f16abfa0ab6d563",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 40",
+        "func": "if (msg.payload >= 10 ) {\n    msg.payload = 0;\n}\n\nelse if (msg.payload < 10 ) {\n    msg.payload = 1;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 320,
+        "wires": [
+            [
+                "bb87c5ac091a606e",
+                "fe50e26601840c84"
+            ]
+        ]
+    },
+    {
+        "id": "fe50e26601840c84",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "label": "valve_auto",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 508,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 570,
+        "y": 320,
+        "wires": [
+            [
+                "33ea0cb5d8ec4a6b",
+                "778ddeadf4ba5218",
+                "ac02ab2d4ca00657"
+            ]
+        ]
+    },
+    {
+        "id": "733ca8ab686e0ff0",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "label": "valve_manual",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 509,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 560,
+        "y": 360,
+        "wires": [
+            [
+                "778ddeadf4ba5218"
+            ]
+        ]
+    },
+    {
+        "id": "778ddeadf4ba5218",
+        "type": "mqtt out",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "main_valve",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c6b7f42765f8bc63",
+        "x": 810,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "33ea0cb5d8ec4a6b",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 41",
+        "func": "if (msg.payload == 1) {\n    var content = \"Water is flowing to the field\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n\nelse if (msg.payload == 0) {\n    var content = \"Water is not flowing to the field\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n\nelse {\n    msg.payload = 0\n\n    return 0;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 320,
+        "wires": [
+            [
+                "15d826cb4e659cef",
+                "9f684427a02d4311"
+            ]
+        ]
+    },
+    {
+        "id": "bb87c5ac091a606e",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 73",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ac02ab2d4ca00657",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 75",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "15d826cb4e659cef",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 76",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ed56e8ef1fa85e99",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 77",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "9f684427a02d4311",
+        "type": "telegram sender",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "bot": "e1928e15ede6c9c4",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 320,
+        "wires": [
+            [
+                "ed56e8ef1fa85e99"
+            ]
+        ]
+    },
+    {
+        "id": "647d34a933b0a609",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 78",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "c6e92390c2c43fe4",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 43",
+        "func": "if (msg.payload == 1) {\n    var content = \"Please fertilize your crop\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n\nelse {\n    msg.payload = 0;\n    return 0;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 720,
+        "wires": [
+            [
+                "476d0374b4d7080e",
+                "02046133fe544577"
+            ]
+        ]
+    },
+    {
+        "id": "476d0374b4d7080e",
+        "type": "telegram sender",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "bot": "e1928e15ede6c9c4",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 720,
+        "wires": [
+            [
+                "bf0cb5b1bb24cad4"
+            ]
+        ]
+    },
+    {
+        "id": "bf0cb5b1bb24cad4",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 79",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "02046133fe544577",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 80",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "a186d6de8ba27f88",
+        "type": "mqtt out",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "fertilizer",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c6b7f42765f8bc63",
+        "x": 800,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "71da28a9d535d5a7",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "label": "fertilizer_auto",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 510,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 580,
+        "y": 800,
+        "wires": [
+            [
+                "a186d6de8ba27f88",
+                "47ae62056fbe1f72",
+                "6588f52d902dd034"
+            ]
+        ]
+    },
+    {
+        "id": "aff1ef18d84f2a7a",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "label": "fertilizer_manual",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 511,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 580,
+        "y": 760,
+        "wires": [
+            [
+                "a186d6de8ba27f88"
+            ]
+        ]
+    },
+    {
+        "id": "47ae62056fbe1f72",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 81",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "6588f52d902dd034",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 44",
+        "func": "if (msg.payload == 1) {\n    var content = \"Fertilize was drop into tank\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n\nelse {\n    msg.payload = 0;\n    return 0;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 760,
+        "wires": [
+            [
+                "7f463011122e3e1b",
+                "4a594d50ebf2d9c8"
+            ]
+        ]
+    },
+    {
+        "id": "7f463011122e3e1b",
+        "type": "telegram sender",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "bot": "e1928e15ede6c9c4",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 760,
+        "wires": [
+            [
+                "b7654214eaec4e51"
+            ]
+        ]
+    },
+    {
+        "id": "b7654214eaec4e51",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 82",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "4a594d50ebf2d9c8",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 83",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "ebb88d999040cea1",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 45",
+        "func": "if (msg.payload < 5) {\n    msg.payload = 0;\n}\n\nelse if (msg.payload >= 8){\n    msg.payload = 1;\n}\n\nelse {\n    msg.payload = 0;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 960,
+        "wires": [
+            [
+                "d862327d808a263a",
+                "d88a1f9b9badeae0",
+                "ee902437f4a0749e"
+            ]
+        ]
+    },
+    {
+        "id": "83391552bcfae728",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "fertilizer",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 460,
+        "wires": [
+            [
+                "f7586a863f64b743",
+                "af2eda76e5fd4fe5",
+                "4228504ab5c21dd6"
+            ]
+        ]
+    },
+    {
+        "id": "f7586a863f64b743",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 84",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "9a7b45b7a2a030af",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 46",
+        "func": "if (msg.payload == 1) {\n    msg.payload = 0;\n}\n\nelse if (msg.payload == 0){\n    msg.payload = 1;\n}\n\nelse {\n    msg.payload = 0;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 460,
+        "wires": [
+            [
+                "fe50e26601840c84",
+                "2272f8a4479c409f",
+                "68bf0c343bd6a0fa"
+            ]
+        ]
+    },
+    {
+        "id": "6cba01f9c63851ab",
+        "type": "telegram sender",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "bot": "e1928e15ede6c9c4",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 460,
+        "wires": [
+            [
+                "7e816acc0f5110c4"
+            ]
+        ]
+    },
+    {
+        "id": "2272f8a4479c409f",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 47",
+        "func": "if (msg.payload == 0) {\n    var content = \"Fertilizer was droped in the tank\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n\nelse {\n    msg.payload = 0\n\n    return 0;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 460,
+        "wires": [
+            [
+                "863ee97157c81e7a",
+                "6cba01f9c63851ab"
+            ]
+        ]
+    },
+    {
+        "id": "863ee97157c81e7a",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 85",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "7e816acc0f5110c4",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 86",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "ec739e46ce2fb8d7",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 48",
+        "func": "if (msg.payload == 0 ) {\n    msg.payload = 1;\n}\n\nelse {\n    msg.payload = 0;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 500,
+        "wires": [
+            [
+                "d370ec87641a030b"
+            ]
+        ]
+    },
+    {
+        "id": "68bf0c343bd6a0fa",
+        "type": "delay",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 800,
+        "y": 500,
+        "wires": [
+            [
+                "ec739e46ce2fb8d7",
+                "91e8f385d64759e3"
+            ]
+        ]
+    },
+    {
+        "id": "91e8f385d64759e3",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 87",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "d370ec87641a030b",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "label": "mixer_auto",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 512,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1290,
+        "y": 500,
+        "wires": [
+            [
+                "feeb8a7a51f16bc5",
+                "419a89a10afd1ddb",
+                "d5e98920bba9ce69"
+            ]
+        ]
+    },
+    {
+        "id": "feeb8a7a51f16bc5",
+        "type": "mqtt out",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "mixer",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c6b7f42765f8bc63",
+        "x": 1510,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "b5697c6536ecb9ec",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "label": "mixer_manual",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 513,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1300,
+        "y": 540,
+        "wires": [
+            [
+                "feeb8a7a51f16bc5"
+            ]
+        ]
+    },
+    {
+        "id": "d5e98920bba9ce69",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 49",
+        "func": "if (msg.payload == 1) {\n    var content = \"Water Mixer Motor was ON\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n/*\nelse if (msg.payload == 0) {\n    var content = \"Water Mixer Motor was OFF\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n*/\nelse {\n    msg.payload = 0\n\n    return 0;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1530,
+        "y": 500,
+        "wires": [
+            [
+                "f152b3e7e20c24d2",
+                "3132ef17edbdce2e"
+            ]
+        ]
+    },
+    {
+        "id": "f152b3e7e20c24d2",
+        "type": "telegram sender",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "bot": "e1928e15ede6c9c4",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1790,
+        "y": 500,
+        "wires": [
+            [
+                "dac21708aaaea0f3"
+            ]
+        ]
+    },
+    {
+        "id": "dac21708aaaea0f3",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 88",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2040,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "3132ef17edbdce2e",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 89",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1760,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "419a89a10afd1ddb",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 90",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1520,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "d862327d808a263a",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 50",
+        "func": "if (msg.payload == 0){\n    msg.payload = 1;\n}\n\nelse{\n    msg.payload = 0;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 960,
+        "wires": [
+            [
+                "71da28a9d535d5a7",
+                "f2fe6a377b3175fd"
+            ]
+        ]
+    },
+    {
+        "id": "f2fe6a377b3175fd",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 91",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "23ea04126aedd1f9",
+        "type": "telegram sender",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "bot": "e1928e15ede6c9c4",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 1000,
+        "wires": [
+            [
+                "4200ee1da4fc17fa"
+            ]
+        ]
+    },
+    {
+        "id": "d88a1f9b9badeae0",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 51",
+        "func": "if (msg.payload == 1) {\n    var content = \"Fertilizer is mixed in water and now ready to flow\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n\nelse {\n    msg.payload = 0\n\n    return 0;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 1000,
+        "wires": [
+            [
+                "309cb2b9444bc86b",
+                "23ea04126aedd1f9"
+            ]
+        ]
+    },
+    {
+        "id": "4200ee1da4fc17fa",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 92",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "309cb2b9444bc86b",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 93",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "ee902437f4a0749e",
+        "type": "delay",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 580,
+        "y": 880,
+        "wires": [
+            [
+                "fe50e26601840c84"
+            ]
+        ]
+    },
+    {
+        "id": "68ab11adc632051c",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "label": "water_flow_manual",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 515,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 590,
+        "y": 1180,
+        "wires": [
+            [
+                "07b0b88507715ef8"
+            ]
+        ]
+    },
+    {
+        "id": "2e5aed41e1e21c66",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "label": "water_flow_auto",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 514,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 580,
+        "y": 1140,
+        "wires": [
+            [
+                "07b0b88507715ef8",
+                "e6e959e6cfbdeafb",
+                "63a09b857ab8cdb0"
+            ]
+        ]
+    },
+    {
+        "id": "07b0b88507715ef8",
+        "type": "mqtt out",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "valve [1,1]",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c6b7f42765f8bc63",
+        "x": 810,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "e6e959e6cfbdeafb",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 94",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "adb086dbed9e1890",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "field/humidity",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 570,
+        "y": 60,
+        "wires": [
+            [
+                "737b59532d1560a8",
+                "6d3a6e95badc6b6b"
+            ]
+        ]
+    },
+    {
+        "id": "737b59532d1560a8",
+        "type": "ui_gauge",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "group": "21c04f8e9625129a",
+        "order": 2,
+        "width": 5,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b0b3",
+            "#e6e600",
+            "#55e421"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 800,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "6d3a6e95badc6b6b",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 95",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "8a061697e5a01279",
+        "type": "ui_gauge",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "group": "21c04f8e9625129a",
+        "order": 1,
+        "width": 5,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Temprature",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "60",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 330,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b1aa06487f692771",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 96",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "86de2c27ebd091e8",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "field/temprature",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "8a061697e5a01279",
+                "b1aa06487f692771"
+            ]
+        ]
+    },
+    {
+        "id": "ee372e7322673926",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "sunlight_index",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1050,
+        "y": 60,
+        "wires": [
+            [
+                "5015a3ca33c500e3",
+                "7c87d527047c3266"
+            ]
+        ]
+    },
+    {
+        "id": "5015a3ca33c500e3",
+        "type": "ui_gauge",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "group": "21c04f8e9625129a",
+        "order": 4,
+        "width": 5,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Sunlight",
+        "label": "UVI",
+        "format": "{{value}}",
+        "min": "00",
+        "max": "1450",
+        "colors": [
+            "#12f337",
+            "#e6e600",
+            "#ff0000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1280,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "7c87d527047c3266",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 97",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "abd782672bb01aac",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "main_valve",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 570,
+        "y": 1260,
+        "wires": [
+            [
+                "5f2a3a6f52158a0c"
+            ]
+        ]
+    },
+    {
+        "id": "35e58e9e91c76c7a",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "motor",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 1260,
+        "wires": [
+            [
+                "96e6228703a4ee21"
+            ]
+        ]
+    },
+    {
+        "id": "4909bd0d1e6e0a03",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "mixer",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 1320,
+        "wires": [
+            [
+                "bc5fe46d0430c469"
+            ]
+        ]
+    },
+    {
+        "id": "5f2a3a6f52158a0c",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 98",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "96e6228703a4ee21",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 99",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "bc5fe46d0430c469",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 100",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "8c671021b5553847",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 101",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "73975234135866d1",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "valve [1,1]",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 560,
+        "y": 1320,
+        "wires": [
+            [
+                "8c671021b5553847"
+            ]
+        ]
+    },
+    {
+        "id": "63a09b857ab8cdb0",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 52",
+        "func": "if (msg.payload == 0) {\n    var content = \"Valve for matrix [1,1] was OFF\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n/*\nelse if (msg.payload == 1) {\n    var content = \"Valve for matrix [1,1] was ON\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n*/\nelse {\n    msg.payload = 0\n\n    return 0;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 1140,
+        "wires": [
+            [
+                "7838aea9f260a94c",
+                "9fd7a0b9a4fd0a48"
+            ]
+        ]
+    },
+    {
+        "id": "7838aea9f260a94c",
+        "type": "telegram sender",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "bot": "e1928e15ede6c9c4",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 1140,
+        "wires": [
+            [
+                "6baae1ac995da1d1"
+            ]
+        ]
+    },
+    {
+        "id": "9fd7a0b9a4fd0a48",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 102",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "6baae1ac995da1d1",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 103",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "af2eda76e5fd4fe5",
+        "type": "delay",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 320,
+        "y": 460,
+        "wires": [
+            [
+                "9a7b45b7a2a030af",
+                "4f4edb1863e5448f"
+            ]
+        ]
+    },
+    {
+        "id": "4f4edb1863e5448f",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 104",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "4228504ab5c21dd6",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 53",
+        "func": "if (msg.payload == 1) {\n    msg.payload = 1;\n}\n\nelse {\n    msg.payload = 0;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 500,
+        "wires": [
+            [
+                "7d110e91b3360e6e"
+            ]
+        ]
+    },
+    {
+        "id": "4540ff20bf758b4b",
+        "type": "mqtt out",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "camara",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c6b7f42765f8bc63",
+        "x": 800,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "7d110e91b3360e6e",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "d": true,
+        "name": "",
+        "label": "cam_auto",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 516,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 560,
+        "y": 540,
+        "wires": [
+            [
+                "4540ff20bf758b4b",
+                "a0ba7d0e3efb42b7",
+                "64ae24a7c2354fe1"
+            ]
+        ]
+    },
+    {
+        "id": "71db0f4f04621531",
+        "type": "ui_switch",
+        "z": "21b8be856a56a519",
+        "d": true,
+        "name": "",
+        "label": "cam_manual",
+        "tooltip": "",
+        "group": "d7c12b74.277828",
+        "order": 517,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 570,
+        "y": 500,
+        "wires": [
+            [
+                "4540ff20bf758b4b"
+            ]
+        ]
+    },
+    {
+        "id": "a0ba7d0e3efb42b7",
+        "type": "function",
+        "z": "21b8be856a56a519",
+        "name": "function 54",
+        "func": "if (msg.payload == 1) {\n    var content = \"Camara was ON\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n/*\nelse if (msg.payload == 0) {\n    var content = \"Water Mixer Motor was OFF\"\n    msg.payload = {\n        \"chatId\": 1447361211,\n        \"sentMessageld\": 24,\n        \"type\": \"message\",\n        \"content\": content\n    }\n\n    return msg;\n}\n*/\nelse {\n    msg.payload = 0\n\n    return 0;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 580,
+        "wires": [
+            [
+                "8552e4afbeee99f0",
+                "61a0db4ac4a5a4a5"
+            ]
+        ]
+    },
+    {
+        "id": "64ae24a7c2354fe1",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 105",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "8552e4afbeee99f0",
+        "type": "telegram sender",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "bot": "e1928e15ede6c9c4",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 580,
+        "wires": [
+            [
+                "820752422faeb561"
+            ]
+        ]
+    },
+    {
+        "id": "61a0db4ac4a5a4a5",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 106",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "820752422faeb561",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 107",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "4d5f9949620e9167",
+        "type": "mqtt in",
+        "z": "21b8be856a56a519",
+        "name": "",
+        "topic": "camara",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "c6b7f42765f8bc63",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 1380,
+        "wires": [
+            [
+                "8bd36d5f8b01947b"
+            ]
+        ]
+    },
+    {
+        "id": "8bd36d5f8b01947b",
+        "type": "debug",
+        "z": "21b8be856a56a519",
+        "name": "debug 108",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "c6b7f42765f8bc63",
+        "type": "mqtt-broker",
+        "name": "Hive MQ",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "21c04f8e9625129a",
+        "type": "ui_group",
+        "name": "Monitor",
+        "tab": "1f3380d2cc4e0974",
+        "order": 2,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d7c12b74.277828",
+        "type": "ui_group",
+        "name": "Controls",
+        "tab": "1f3380d2cc4e0974",
+        "order": 1,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e1928e15ede6c9c4",
+        "type": "telegram bot",
+        "botname": "https://t.me/nodered8723_bot",
+        "usernames": "Prince",
+        "chatids": "1234567890",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "1f3380d2cc4e0974",
+        "type": "ui_tab",
+        "name": "Drip",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
